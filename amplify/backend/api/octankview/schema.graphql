@@ -1,0 +1,9 @@
+type Post @model {
+  id: ID!
+  name: String!
+  description: String!
+  tenant_id: String!
+  location: String!
+  image: String!
+  owner: String
+}
