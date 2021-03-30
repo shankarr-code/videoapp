@@ -38,7 +38,7 @@ export default function Post({user}) {
       <h3 className={locationStyle}>{post.location}</h3>
       <p>{post.description}</p>
       <video width="750" height="500" controls >
-      <source src={post.image} type="video/*"/>
+      <source src={post.image} />
      </video>
     </>
   )

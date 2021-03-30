@@ -32,7 +32,7 @@ export default function CreatePost({
   function onChangeFile(e) {
     e.persist();
     if (! e.target.files[0]) return;
-    const image = { fileInfo: e.target.files[0], name: `${e.target.files[0].name}_${uuid()}`}
+    const image = { fileInfo: e.target.files[0], name: `${uuid()}_${e.target.files[0].name}`}
     console.log("onChangeFile image --> " + image.name);
     updateFormState(currentState => ({ ...currentState, file: URL.createObjectURL(e.target.files[0]), image }))
   }
@@ -94,7 +94,7 @@ export default function CreatePost({
         type="file"
         onChange={onChangeFile}
       />
-      { formState.file && <img className={imageStyle} alt="preview" src={formState.file} /> }
+      { formState.file && <video className={imageStyle} alt="preview" src={formState.file} /> }
       <Button title="Create New Post" onClick={save} />
       <Button type="cancel" title="Cancel" onClick={() => updateOverlayVisibility(false)} />
       { formState.saving && <p className={savingMessageStyle}>Saving post...</p> }

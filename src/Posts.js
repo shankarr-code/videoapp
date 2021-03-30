@@ -14,7 +14,7 @@ export default function Posts({
             <div key={post.id} className={postContainer}>
               <h1 className={postTitleStyle}>{post.name}</h1>
               <video width="750" height="500" controls >
-              <source src={post.image} type="video/*"/>
+              <source src={post.image}/>
               </video>
             </div>
           </Link>
