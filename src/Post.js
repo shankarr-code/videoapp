@@ -20,12 +20,20 @@ export default function Post({user}) {
       console.log('post.js image' + currentPost.image);
       console.log('from post.js user -->' +  user.username);
       console.log('from post.js tenant -->' +  user.attributes['custom:tenant_id']);
-      const key = user.attributes['custom:tenant_id'] + '/' + user.username + '/' + currentPost.image;
-      const image = await Storage.get(key);
+      //const key = user.attributes['custom:tenant_id'] + '/' + user.username + '/' + currentPost.image;
+      //const image = await Storage.get(key);
+      try{
+        const key = currentPost.image
+        Storage.configure({ level: 'private' });
+        const image = await Storage.get(key);
+        currentPost.image = image;
+        updatePost(currentPost);
+        updateLoading(false);
 
-      currentPost.image = image;
-      updatePost(currentPost);
-      updateLoading(false);
+      } catch(err) {
+        console.log(err);
+      }
+      
     } catch (err) {
       console.log('error: ', err)
     }

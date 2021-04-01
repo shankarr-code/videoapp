@@ -52,16 +52,27 @@ export default function CreatePost({
       //updateFormState(currentState => ({ ...currentState, tenant }));
       updateFormState(currentState => ({ ...currentState, saving: true }));
       const postId = uuid();
-      const postInfo = { name, description, location, image: formState.image.name, id: postId, tenant_id: user.attributes['custom:tenant_id'], owner: user.username };
+      const postInfo = { name, description, location, image: formState.image.name, id: postId, tenant_id: user.attributes['custom:tenant_id'], userid: user.username };
       //console.log('formState tenant -->' +  formState.tenant);
       //console.log('formState user -->' +  formState.username);
-      const key = user.attributes['custom:tenant_id'] + '/' + user.username + '/' + formState.image.name
-      await Storage.put(key, formState.image.fileInfo); // add try catch
-      console.log('Past storage');
-      console.log('postInfo -->' + postInfo);
-      await API.graphql({ // add try catch
-        query: createPost, variables: { input: postInfo }
-      });
+      try {
+        //const key = user.attributes['custom:tenant_id'] + '/' + user.username + '/' + formState.image.name;
+        //await Storage.put(key, formState.image.fileInfo); // add try catch
+        Storage.configure({ level: 'private' });
+        await Storage.put(formState.image.name, formState.image.fileInfo); // add try catch
+        console.log('Past storage');
+        console.log('postInfo -->', postInfo);
+      } catch (err) {
+        console.log(err);
+      }
+      
+      try {
+        await API.graphql({ // add try catch
+          query: createPost, variables: { input: postInfo }
+        });
+      } catch (err) {
+        console.log(err);
+      }
       updatePosts([...posts, { ...postInfo, image: formState.file, tenant: user.attributes['custom:tenant_id'] }]);
       updateFormState(currentState => ({ ...currentState, saving: false }));
       updateOverlayVisibility(false);

@@ -35,20 +35,24 @@ function Router() {
     const tenant = user.attributes['custom:tenant_id'];
     console.log("tenant from fetchPosts() :" + tenant);
     setTenant(tenant);
+    const usercreds = Auth.currentCredentials;
+    console.log("Current cred --> ", usercreds );
     //if (!tenant || !user.username) return;
     console.log("user from fetchPosts() :" + user.username);
     /* query the API, ask for 100 items */
     let qfilter = {
-      owner: {
+      userid: {
         eq: user.username
       }
     };
-    let postData = await API.graphql({ query: listPosts, variables: { limit: 100, filter: qfilter }});
+    let postData = await API.graphql({ query: listPosts, variables: { limit: 100}});
     let postsArray = postData.data.listPosts.items;
     console.log('post array --> ' + postsArray);
     /* map over the image keys in the posts array, get signed image URLs for each image */
     postsArray = await Promise.all(postsArray.map(async post => {
-      const imageKey = await Storage.get(tenant + '/' + user.username + '/' + post.image);
+      //const imageKey = await Storage.get(tenant + '/' + user.username + '/' + post.image);
+      Storage.configure({ level: 'private' });
+      const imageKey = await Storage.get(post.image);
       console.log('ImageKey ' + imageKey );
       post.image = imageKey;
       return post;

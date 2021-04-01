@@ -1,9 +1,9 @@
-type Post @model {
+type Post @model @auth(rules: [{ allow: owner, operations: [create, update, delete, read] }]){
   id: ID!
   name: String!
   description: String!
   tenant_id: String!
   location: String!
   image: String!
-  owner: String
+  userid: String
 }

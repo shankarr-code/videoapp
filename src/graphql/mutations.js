@@ -13,9 +13,10 @@ export const createPost = /* GraphQL */ `
       tenant_id
       location
       image
-      owner
+      userid
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -31,9 +32,10 @@ export const updatePost = /* GraphQL */ `
       tenant_id
       location
       image
-      owner
+      userid
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -49,9 +51,10 @@ export const deletePost = /* GraphQL */ `
       tenant_id
       location
       image
-      owner
+      userid
       createdAt
       updatedAt
+      owner
     }
   }
 `;

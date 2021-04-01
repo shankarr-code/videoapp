@@ -10,9 +10,10 @@ export const getPost = /* GraphQL */ `
       tenant_id
       location
       image
-      owner
+      userid
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -30,9 +31,10 @@ export const listPosts = /* GraphQL */ `
         tenant_id
         location
         image
-        owner
+        userid
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }

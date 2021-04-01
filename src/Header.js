@@ -24,6 +24,9 @@ const headerContainer = css`
   padding-top: 20px;
   display: 'flex';
   alignItems: 'center';
+  background-color: #808080;
+  color: white;
+  padding: 40px;
 `
 
 const headerStyle = css`
@@ -32,7 +35,7 @@ const headerStyle = css`
 `
 
 const linkStyle = css`
-  color: black;
+  color: white;
   font-weight: bold;
   text-decoration: none;
   margin-right: 10px;
