@@ -14,7 +14,7 @@ export default function Header({user}) {
           <AmplifySignOut button-text="Sign Out"></AmplifySignOut>
         </div>
      </div>
-     <h3 className="font-medium text-gray-500 my-2">User : {user.username}</h3>
+     <h3 className="font-medium text-gray-500 my-2">Hello {user.username}!</h3>
      <Link to="/" className={linkStyle}>All Posts</Link>
     </div>
   )
